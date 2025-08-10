@@ -20,14 +20,24 @@ public class FirebaseConfig {
     @PostConstruct
     public void initialize() {
         try {
+            String projectRoot = System.getProperty("user.dir") + "/backend";
+
             Dotenv dotenv = Dotenv.configure()
-                    .directory("./")
+                    .directory(projectRoot)
                     .load();
 
             // Read variables from .env
+            String type = dotenv.get("FIREBASE_TYPE");
             String projectId = dotenv.get("FIREBASE_PROJECT_ID");
-            String clientEmail = dotenv.get("FIREBASE_CLIENT_EMAIL");
+            String privateKeyId = dotenv.get("FIREBASE_PRIVATE_KEY_ID");
             String privateKey = dotenv.get("FIREBASE_PRIVATE_KEY");
+            String clientEmail = dotenv.get("FIREBASE_CLIENT_EMAIL");
+            String clientId = dotenv.get("FIREBASE_CLIENT_ID");
+            String authURI = dotenv.get("FIREBASE_AUTH_URI");
+            String tokenURI = dotenv.get("FIREBASE_TOKEN_URI");
+            String authProvider = dotenv.get("FIREBASE_AUTH_PROVIDER_X509_CERT_URL");
+            String clientCertURL = dotenv.get("FIREBASE_CLIENT_X509_CERT_URL");
+            String universeDomain = dotenv.get("FIREBASE_UNIVERSE_DOMAIN");
 
             if (projectId == null || clientEmail == null || privateKey == null) {
                 throw new IllegalStateException("Firebase variables not found in .env");
@@ -36,12 +46,31 @@ public class FirebaseConfig {
             // Create JSON in memory
             String credentialsJson = String.format("""
                 {
-                  "type": "service_account",
+                  "type": "%s",
                   "project_id": "%s",
+                  "private_key_id": "%s",
                   "client_email": "%s",
+                  "client_id": "%s",
+                  "auth_uri": "%s",
+                  "token_uri": "%s",
+                  "auth_provider_x509_cert_url": "%s",
+                  "client_x509_cert_url": "%s",
+                  "universe_domain": "%s",
                   "private_key": "%s"
                 }
-                """, projectId, clientEmail, privateKey.replace("\\n", "\n"));
+                """,
+                    type,
+                    projectId,
+                    privateKeyId,
+                    clientEmail,
+                    clientId,
+                    authURI,
+                    tokenURI,
+                    authProvider,
+                    clientCertURL,
+                    universeDomain,
+                    privateKey.replace("\\n", "\n"));
+
 
             GoogleCredentials credentials = GoogleCredentials
                     .fromStream(new ByteArrayInputStream(credentialsJson.getBytes()));
