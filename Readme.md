@@ -1,1 +1,2 @@
 # Welcome!
+Kaito Sentai Lupinranger
