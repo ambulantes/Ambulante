@@ -62,7 +62,7 @@ hs_err_pid*
 .spring-boot-devtools.properties
 
 # Environment variables
-.env
+backend/.env
 .env.local
 .env.*.local
 

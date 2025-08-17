@@ -20,7 +20,7 @@ public class FirebaseConfig {
     @PostConstruct
     public void initialize() {
         try {
-            String projectRoot = System.getProperty("user.dir") + "/backend";
+            String projectRoot = System.getProperty("user.dir");
 
             Dotenv dotenv = Dotenv.configure()
                     .directory(projectRoot)
