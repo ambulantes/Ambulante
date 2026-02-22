@@ -9,3 +9,19 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
     - "5433:5432"
+  
+  ambulante_backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend/.env:/app/.env
+    env_file:
+      - ./backend/.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ambulante_postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - ambulante_postgres
+    ports:
+    - "8080:8080"
