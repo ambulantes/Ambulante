@@ -1,6 +1,10 @@
 import { Stack } from "expo-router";
-import "../global.css";
+import { PaperProvider } from "react-native-paper";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <PaperProvider> 
+      <Stack screenOptions={{ headerShown: false }} />
+    </PaperProvider>
+  );
 }
