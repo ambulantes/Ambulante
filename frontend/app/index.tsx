@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 
 export default function Index() {
+  const { colors } = useTheme();
+
   const [mensaje, setMensaje] = useState("Presiona el botón para probar");
   const [loading, setLoading] = useState(false);
 
@@ -31,6 +33,7 @@ export default function Index() {
       <Button
         mode="contained"
         loading={loading}
+        buttonColor={colors.primary}
         onPress={probarConexion}
       >
         {loading ? "Conectando..." : "Probar Conexión"}
