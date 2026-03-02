@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
+import { AppButton } from "@/src/components/AppButton";
 
 export default function Index() {
   const { colors } = useTheme();
@@ -38,6 +39,24 @@ export default function Index() {
       >
         {loading ? "Conectando..." : "Probar Conexión"}
       </Button>
+
+      <AppButton>Primario</AppButton>
+
+      <AppButton variant="secondary" mode="outlined">
+        Secundario
+      </AppButton>
+
+      <AppButton variant="danger">
+        Danger
+      </AppButton>
+
+      <AppButton loading>
+        Cargando...
+      </AppButton>
+
+      <AppButton disabled>
+        Deshabilitado
+      </AppButton>
     </View>
   );
 }
