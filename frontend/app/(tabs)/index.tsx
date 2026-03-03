@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
-import { AppButton } from "@/src/components/AppButton";
+import { AppButton } from "@/shared/components/AppButton";
 
 export default function Index() {
   const { colors } = useTheme();

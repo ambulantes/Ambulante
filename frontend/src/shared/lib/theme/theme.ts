@@ -18,6 +18,10 @@ export const lightTheme = {
         border: "#E5E7EB", // For separators
         textPrimary: "#111827", // Main text
         textSecondary: "#6B7280", // Secondary text
+
+        outline: "#E5E7EB", // Tab bar upper border
+        onSurfaceVariant: "#6B7280" // Inactive icons color
+
     }
 };
 
