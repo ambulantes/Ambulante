@@ -22,7 +22,7 @@ export function ProductCard({ product, vendor }: Props) {
 
     return (
         <Card
-            style={styles.container}
+            style={[styles.container, { backgroundColor: colors.surface }]}
             onPress={() => router.push(`/products/${product.id}` as any )} // Modify when route is created
         >
             <Card.Cover source={{ uri: product.imageUrl }} style={styles.image} />

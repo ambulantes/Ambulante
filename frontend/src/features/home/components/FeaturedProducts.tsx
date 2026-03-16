@@ -4,6 +4,10 @@ import { useRouter } from "expo-router";
 import { ProductCard } from "../../products/components/ProductCard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+type Props = {
+    title: string;
+}
+
 const MOCK_PRODUCTS = [
     {
         product: { id: "1", name: "Enfrijoladas con Pollo", price: 135.99, imageUrl: "https://picsum.photos/200/160" },
@@ -23,7 +27,7 @@ const MOCK_PRODUCTS = [
     },
 ];
 
-export function FeaturedProducts() {
+export function FeaturedProducts({ title }: Props) {
     const { colors } = useTheme();
     const router = useRouter();
 
@@ -32,7 +36,7 @@ export function FeaturedProducts() {
 
             {/* Header */}
             <View style={styles.header}>
-                <Text variant="titleMedium">Recomendado para ti</Text>
+                <Text variant="titleMedium">{title}</Text>
                 <Pressable
                     style={styles.seeAll}
                     onPress={() => router.push("/products" as any)}

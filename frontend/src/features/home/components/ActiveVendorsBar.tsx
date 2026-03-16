@@ -1,6 +1,7 @@
 import { ScrollView, View, StyleSheet } from "react-native";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 
+//TODO: Delete this mock values and implement backend data
 const MOCK_VENDORS = [
     { id: "1", avatarUrl: "https://picsum.photos/40"},
     { id: "2", avatarUrl: "https://picsum.photos/41"},

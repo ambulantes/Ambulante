@@ -1,11 +1,14 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { ActiveVendorsBar, FeaturedProducts } from "@/features/home/components";
+import { ActiveVendorsBar, CategoryList, FeaturedProducts, SearchBar } from "@/features/home/components";
 
 export default function HomeScreen() {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <ActiveVendorsBar />
-            <FeaturedProducts />
+            <SearchBar />
+            <FeaturedProducts title="Recomendado para ti" />
+            <CategoryList />
+            <FeaturedProducts title="Destacados" />
         </ScrollView>
     );
 }
@@ -13,6 +16,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         paddingVertical: 16,
-        gap: 16,
+        gap: 32,
     },
 });

@@ -26,7 +26,7 @@ export function UserAvatar({ userId, avatarUrl, size = 40, onPress, isActive }: 
                 />
             </Pressable>
 
-
+            {/* Green active indicator */}
             {isActive && (
                 <View style={styles.activeIndicator} />
             )}
