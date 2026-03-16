@@ -37,7 +37,7 @@ export function FeaturedProducts() {
                     style={styles.seeAll}
                     onPress={() => router.push("/products" as any)}
                 >
-                    <Text variant="bodySmall" style={{ color: colors.primary }}>
+                    <Text variant="bodySmall" style={{ color: colors.primary, fontWeight: "bold" }}>
                         Ver todo
                     </Text>
                     

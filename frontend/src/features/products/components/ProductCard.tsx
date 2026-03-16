@@ -1,6 +1,7 @@
-import { StyleSheet, Pressable } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { UserAvatar } from "@/shared/components/UserAvatar";
 
 type Props = {
     product: {
@@ -27,15 +28,13 @@ export function ProductCard({ product, vendor }: Props) {
             <Card.Cover source={{ uri: product.imageUrl }} style={styles.image} />
 
             {/*Vendor profile image*/}
-            <Pressable
-                style={styles.avatarContainer}
-                onPress={() => router.push(`/vendors/${vendor.id}` as any )} // Modify when route is created
-            >
-                <Card.Cover
-                    source={{ uri: vendor.avatarUrl }}
-                    style={styles.avatar}
+            <View style={styles.avatarContainer}>
+                <UserAvatar 
+                    userId={vendor.id}
+                    avatarUrl={vendor.avatarUrl}
+                    size={32}
                 />
-            </Pressable>
+            </View>
 
             <Card.Content style={styles.content}>
                 <Text variant="titleMedium" numberOfLines={1}>{product.name}</Text>
