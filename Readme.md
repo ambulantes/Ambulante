@@ -265,5 +265,5 @@ npx expo start
 # Autores
 
 * Jose Roberto Escobedo Quezada
-* Jose Daniel
+* Jose Daniel Martinez Gonzalez
 * Alejandro
