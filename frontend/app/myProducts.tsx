@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import { Appbar, Text, Divider, useTheme } from 'react-native-paper';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { Appbar, Text, Divider } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import SuperiorFilter from './SuperiorFilter';
+import Product from './Product';
 
 // Datos de ejemplo
 const PRODUCTOS = [
@@ -16,30 +17,7 @@ export default function MisProductos() {
   const router = useRouter();
 
   const renderItem = ({ item }) => (
-    <View>
-      <View style={styles.productRow}>
-        {/* Imagen del producto */}
-        <Image source={{ uri: item.image }} style={styles.productImage} />
-
-        {/* Nombre */}
-        <View style={styles.columnNombre}>
-          <Text variant="bodyMedium" style={styles.cellText}>{item.nombre}</Text>
-        </View>
-
-        {/* Precio */}
-        <View style={styles.columnPrecio}>
-          <Text variant="bodyLarge" style={styles.priceText}>
-            <Text style={styles.currencySymbol}>$ </Text>{item.precio}
-          </Text>
-        </View>
-
-        {/* Stock */}
-        <View style={styles.columnStock}>
-          <Text variant="bodyLarge" style={styles.stockText}>{item.stock}</Text>
-        </View>
-      </View>
-      <Divider style={styles.rowDivider} />
-    </View>
+    <Product id={item.id}  nombre={item.nombre} precio={item.precio} stock={item.stock} image={item.image}/>
   );
 
   return (
@@ -51,19 +29,7 @@ export default function MisProductos() {
       </Appbar.Header>
 
       {/* Filtros Superiores */}
-      <View style={styles.filterContainer}>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>Categoría</Text>
-          <MaterialCommunityIcons name="menu-right" size={24} color="#555" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={[styles.filterText, { textAlign: 'right' }]}>
-            Cantidad de{"\n"}Stock
-          </Text>
-          <MaterialCommunityIcons name="menu-right" size={24} color="#555" />
-        </TouchableOpacity>
-      </View>
+      <SuperiorFilter/>
 
       <Divider />
 
@@ -101,24 +67,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginRight: 40,
   },
-  filterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    alignItems: 'center',
-  },
-  filterButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '45%',
-    justifyContent: 'space-between',
-  },
-  filterText: {
-    fontSize: 15,
-    color: '#333',
-    lineHeight: 18,
-  },
   tableHeader: {
     flexDirection: 'row',
     paddingHorizontal: 16,
@@ -134,17 +82,6 @@ const styles = StyleSheet.create({
   listPadding: {
     paddingHorizontal: 16,
   },
-  productRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  productImage: {
-    width: 70,
-    height: 60,
-    borderRadius: 4,
-    backgroundColor: '#f0f0f0',
-  },
   columnImagePlaceholder: {
     width: 70,
   },
@@ -159,23 +96,5 @@ const styles = StyleSheet.create({
   columnStock: {
     flex: 0.8,
     alignItems: 'center',
-  },
-  cellText: {
-    fontSize: 13,
-    color: '#444',
-  },
-  priceText: {
-    color: '#d32f2f', // Rojo consistente
-    fontWeight: 'bold',
-  },
-  currencySymbol: {
-    fontSize: 16,
-  },
-  stockText: {
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  rowDivider: {
-    backgroundColor: '#e0e0e0',
   },
 });
