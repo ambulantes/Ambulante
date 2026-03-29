@@ -208,12 +208,12 @@ Antes de ejecutar el frontend debes tener instalado:
 
 ## Ejecutar la aplicación
 
-### 1. Iniciar los servicios del backend
+### 1. Iniciar los servicios del backend (en modo dev)
 
 Desde la raíz del proyecto iniciar los contenedores Docker:
 
 ```
-docker compose up --build
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 ```
 
 Esto iniciará:
