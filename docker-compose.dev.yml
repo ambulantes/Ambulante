@@ -1,0 +1,13 @@
+services:
+  ambulante_backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile.dev
+    image: ambulante-backend-dev
+    volumes:
+      - ./backend:/app/backend
+      - ./backend/target/classes:/app/backend/target/classes
+      - maven_repo:/root/.m2
+
+volumes:
+  maven_repo:

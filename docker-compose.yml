@@ -8,13 +8,14 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-    - "5433:5432"
-  
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   ambulante_backend:
     build:
       context: ./backend
-    volumes:
-      - ./backend/.env:/app/.env
+      dockerfile: dockerfile
     env_file:
       - ./backend/.env
     environment:
@@ -24,4 +25,7 @@ services:
     depends_on:
       - ambulante_postgres
     ports:
-    - "8080:8080"
+      - "8080:8080"
+
+volumes:
+  postgres_data:
