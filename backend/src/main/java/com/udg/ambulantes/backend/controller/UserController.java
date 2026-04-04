@@ -1,11 +1,10 @@
 package com.udg.ambulantes.backend.controller;
 
+import com.udg.ambulantes.backend.dto.FavoriteVendorResponse;
 import com.udg.ambulantes.backend.model.User;
+import com.udg.ambulantes.backend.repository.UserRepository;
 import com.udg.ambulantes.backend.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,18 +12,21 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping
+    @GetMapping("/by-ids")
     public List<User> getUsersByIds(@RequestParam List<Long> ids) {
         return userService.getUsersByIds(ids);
     }
 
-    @GetMapping
-    public List<User> getFavoriteVendorsByIds(@RequestParam List<Long> ids) {
-        return userService
+    // TODO: Replace userId with authenticated session user when auth is implemented
+    @GetMapping("/{id}/favorites")
+    public List<FavoriteVendorResponse> getFavoriteVendorsByIds(@PathVariable("id") Long userId) {
+        return userService.getFavoriteVendorsById(userId);
     }
 }

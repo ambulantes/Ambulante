@@ -62,4 +62,7 @@ public class User {
 
     @Column(name = "is_mobile_vendor")
     private Boolean isMobileVendor;
+
+    @OneToMany(mappedBy = "user")
+    private List<FavoriteVendor> favoriteVendors;
 }
