@@ -2,8 +2,8 @@ import { Pressable, StyleSheet, Image, View } from "react-native";
 import { useRouter } from "expo-router";
 
 type Props = { 
-    userId: string;
-    avatarUrl: string;
+    userId: number;
+    avatarUrl?: string;
     size?: number;
     onPress?: () => void;
     isActive?: boolean;

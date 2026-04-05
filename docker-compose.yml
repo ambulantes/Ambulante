@@ -26,6 +26,8 @@ services:
       - ambulante_postgres
     ports:
       - "8080:8080"
+    volumes:
+      - ./uploads:/app/uploads
 
 volumes:
   postgres_data:
