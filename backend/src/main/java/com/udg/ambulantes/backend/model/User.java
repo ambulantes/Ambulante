@@ -65,4 +65,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<FavoriteVendor> favoriteVendors;
+
+    @OneToMany(mappedBy = "vendor")
+    private List<Product> products;
 }
