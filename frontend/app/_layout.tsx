@@ -7,8 +7,8 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   return (
-    <QueryClientProvider client={queryClient}>  {/* ← envolver todo */}
-      <PaperProvider theme={lightTheme}> 
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider theme={lightTheme}>
         <Stack screenOptions={{ headerShown: false }} />
       </PaperProvider>
     </QueryClientProvider>

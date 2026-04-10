@@ -1,35 +1,30 @@
 import { View, StyleSheet, Pressable } from "react-native";
-import { Text, useTheme } from "react-native-paper";
+import { Text, useTheme, ActivityIndicator } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { ProductCard } from "../../products/components/ProductCard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useHomeProducts } from "../hooks/useHomeProducts";
+import { API_URL } from "@/config/api";
 
 type Props = {
     title: string;
 }
 
-const MOCK_PRODUCTS = [
-    {
-        product: { id: "1", name: "Enfrijoladas con Pollo", price: 135.99, imageUrl: "https://picsum.photos/200/160" },
-        vendor: { id: "1", avatarUrl: "https://picsum.photos/40" },
-    },
-    {
-        product: { id: "2", name: "Tacos de Canasta", price: 85.00, imageUrl: "https://picsum.photos/200/161" },
-        vendor: { id: "2", avatarUrl: "https://picsum.photos/41" },
-    },
-    {
-        product: { id: "3", name: "Torta de Milanesa", price: 65.00, imageUrl: "https://picsum.photos/200/162" },
-        vendor: { id: "3", avatarUrl: "https://picsum.photos/42" },
-    },
-    {
-        product: { id: "4", name: "Agua de Horchata", price: 25.00, imageUrl: "https://picsum.photos/200/163" },
-        vendor: { id: "4", avatarUrl: "https://picsum.photos/43" },
-    },
-];
-
 export function FeaturedProducts({ title }: Props) {
     const { colors } = useTheme();
     const router = useRouter();
+
+    const { data: products, isLoading, error } = useHomeProducts();
+
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" />
+            </View>
+        )
+    }
+
+    if (error) return <Text>Error while loading products</Text>
 
     return (
         <View style={styles.container}>
@@ -51,11 +46,19 @@ export function FeaturedProducts({ title }: Props) {
 
             {/* Grid 2x2 */}
             <View style={styles.grid}>
-                {MOCK_PRODUCTS.map((item) => (
-                    <View key={item.product.id} style={styles.cardWrapper}>
+                {products?.map((item) => (
+                    <View key={item.id} style={styles.cardWrapper}>
                         <ProductCard
-                            product={item.product}
-                            vendor={item.vendor}
+                            product={{
+                                id: item.id,
+                                name: item.name,
+                                price: item.price,
+                                imageUrl: item.imgUrl ? `${API_URL}${item.imgUrl}` : undefined
+                            }}
+                            vendor={{
+                                id: item.vendor.id,
+                                avatarUrl: item.vendor.imgUrl ? `${API_URL}${item.vendor.imgUrl}` : undefined
+                            }}
                         />
                     </View>
                 ))}
@@ -88,4 +91,9 @@ const styles = StyleSheet.create({
     cardWrapper: {
         width: "48%",
     },
+    loadingContainer: {
+        paddingVertical: 32,
+        alignItems: "center",
+        justifyContent: "center",
+    }
 });

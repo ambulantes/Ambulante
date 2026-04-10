@@ -1,7 +1,10 @@
+import { View } from "react-native";
 import { Text } from "react-native-paper";
 
 export default function Profile() {
     return (
-        <Text variant="displayLarge"> Perfil </Text>
+        <View>
+            <Text variant="displayLarge"> Perfil </Text>
+        </View>
     )
 }

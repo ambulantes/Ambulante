@@ -1,8 +1,9 @@
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import { Text } from "react-native-paper";
 import { CategoryCard } from "./CategoryCard";
 import { useRouter } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useHomeCategories } from "../hooks/useHomeCategories";
 
 type Category = {
     id: string;
@@ -10,19 +11,29 @@ type Category = {
     icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
 };
 
-// These are fixed values... DON'T CHANGE
-const CATEGORIES: Category[] = [
-    { id: "1", label: "Alimentos", icon: "food" },
-    { id: "2", label: "Ropa", icon: "tshirt-crew" },
-    { id: "3", label: "Calzado", icon: "shoe-sneaker" },
-    { id: "4", label: "Accesorios", icon: "glasses" },
-    { id: "5", label: "Electronicos", icon: "controller" },
-    { id: "6", label: "Recreativos", icon: "robot" },
-    { id: "7", label: "Otros", icon: "shape" },
-];
+// Maps the name of each category to an icon
+const CATEGORY_ICONS: Record<string, React.ComponentProps<typeof MaterialCommunityIcons>["name"]> = {
+    "Alimentos": "food",
+    "Ropa": "tshirt-crew",
+    "Calzado": "shoe-sneaker",
+    "Accesorios": "glasses",
+    "Electronicos": "controller",
+    "Recreativos": "robot",
+    "Otros": "shape",
+};
 
 export function CategoryList() {
     const router = useRouter();
+
+    const { data: categories, isLoading, error } = useHomeCategories();
+
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" />
+            </View>
+        )
+    }
 
     return (
         <View style={styles.container}>
@@ -32,11 +43,11 @@ export function CategoryList() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.scroll}
             >
-                {CATEGORIES.map((category) => (
+                {categories?.map((category) => (
                     <CategoryCard
                         key={category.id}
-                        label={category.label}
-                        icon={category.icon}
+                        name={category.name}
+                        icon={CATEGORY_ICONS[category.name] ?? "shape"}
                         onPress={() => router.push(`/search?category=${category.id}` as any)}
                     />
                 ))}
@@ -56,4 +67,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         gap: 16,
     },
+        loadingContainer: {
+        paddingVertical: 32,
+        alignItems: "center",
+        justifyContent: "center",
+    }
 });

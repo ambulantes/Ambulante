@@ -3,12 +3,12 @@ import { Text, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 type Props = {
-    label: string;
+    name: string;
     icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
     onPress: () => void;
 };
 
-export function CategoryCard({ label, icon, onPress }: Props) {
+export function CategoryCard({ name, icon, onPress }: Props) {
     const { colors } = useTheme();
 
     return (
@@ -20,7 +20,7 @@ export function CategoryCard({ label, icon, onPress }: Props) {
             <View style={[styles.iconBox, { backgroundColor: colors.surface }]}>
                 <MaterialCommunityIcons name={icon} size={28} color={colors.primary} />
             </View>
-            <Text variant="bodySmall">{label}</Text>
+            <Text variant="bodySmall">{name}</Text>
         </Pressable>
     );
 }
