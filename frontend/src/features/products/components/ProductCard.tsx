@@ -11,7 +11,7 @@ type Props = {
         imageUrl: string;
     };
     vendor: {
-        id: string;
+        id: number;
         avatarUrl: string;
     };
 };

@@ -1,5 +1,7 @@
 import { ScrollView, View, StyleSheet } from "react-native";
 import { UserAvatar } from "@/shared/components/UserAvatar";
+import { useActiveVendors } from "../hooks/useActiveVendors";
+import { API_URL } from "../services/vendorsApi";
 
 //TODO: Delete this mock values and implement backend data
 const MOCK_VENDORS = [
@@ -13,6 +15,10 @@ const MOCK_VENDORS = [
 ];
 
 export function ActiveVendorsBar() {
+    const { data: vendors, isLoading } = useActiveVendors();
+
+    if (isLoading) return null;
+
     return (
         <View style={styles.container}>
             <ScrollView
@@ -20,11 +26,11 @@ export function ActiveVendorsBar() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.scroll}
             >
-                {MOCK_VENDORS.map((vendor) => (
+                {vendors?.map((vendor) => (
                     <UserAvatar 
                         key={vendor.id}
                         userId={vendor.id}
-                        avatarUrl={vendor.avatarUrl}
+                        avatarUrl={vendor.imgUrl ? `${API_URL}${vendor.imgUrl}` : undefined}
                         size={56}
                         isActive
                     />
