@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { fetchActiveVendors } from "../services/usersApi"
+import { fetchActiveVendors } from "../services/vendorsApi"
 
 export function useActiveVendors() {
     return useQuery({

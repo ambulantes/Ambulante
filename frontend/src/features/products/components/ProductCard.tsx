@@ -23,7 +23,7 @@
         return (
             <Card
                 style={[styles.container, { backgroundColor: colors.surface }]}
-                onPress={() => router.push(`/products/${product.id}` as any )} // Modify when route is created
+                onPress={() => router.push(`/products/${product.id}` as any )}
             >
                 {product.imageUrl && (
                     <Card.Cover
