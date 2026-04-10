@@ -9,9 +9,10 @@ export default function Profile() {
     const theme = useTheme();
 
     return (
-        // <Text variant="displayLarge"> Perfil </Text>
         <View style={styles.container}>
-      /* Header con Expo Router */
+        {/* <Text variant="displayLarge"> Perfil </Text> */}
+        
+      {/* Header con Expo Router */}
         <Appbar.Header style={styles.header}>
             <Appbar.BackAction onPress={() => router.back()} />
             <Appbar.Content title="Registro de producto" titleStyle={styles.headerTitle} />
@@ -19,7 +20,7 @@ export default function Profile() {
 
         <ScrollView contentContainerStyle={styles.scrollContent}>
             
-            /* Selector de Imagen */
+            {/* Selector de Imagen */}
             <View style={styles.imageContainer}>
             <TouchableOpacity style={styles.imagePicker}>
                 <IconButton icon="upload" size={30} iconColor="#8d2d24" />
@@ -27,10 +28,10 @@ export default function Profile() {
             <Text style={styles.imageLabel}>Imagen</Text>
             </View>
 
-            /* Formulario */
+            {/* Formulario */}
             <ProductForm/>
 
-            /* Botones de Acción */
+            {/* Botones de Acción */}
             <View style={styles.buttonContainer}>
             <Button 
                 mode="contained" 

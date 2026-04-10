@@ -1,6 +1,6 @@
-import { FavoriteVendorResponse } from "../types/vendor";
+import { FavoriteVendorResponse } from "../types/user";
+import { API_URL } from "@/config/api";
 
-export const API_URL = "http://192.168.100.35:8080"
 const USER_ID = 1;
 
 export async function fetchActiveVendors(): Promise<FavoriteVendorResponse[]> {

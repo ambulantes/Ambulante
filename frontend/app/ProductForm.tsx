@@ -13,7 +13,7 @@ export default function ProductForm(){
 
     return (
         <View>
-        /* Formulario */
+        {/* Formulario */}
             <TextInput
             label="Nombre"
             value={nombre}
@@ -40,8 +40,8 @@ export default function ProductForm(){
             keyboardType="numeric"
             style={styles.input}
             right={<TextInput.Icon icon="chevron-up" onPress={() => setStock((prev) => (parseInt(prev) + 1).toString())} />}
-            // Nota: El icono de abajo se puede simular o usar un componente Stepper dedicado
             />
+            {/* Nota: El icono de abajo se puede simular o usar un componente Stepper dedicado */}
 
             <TextInput
             label="Categoría"
