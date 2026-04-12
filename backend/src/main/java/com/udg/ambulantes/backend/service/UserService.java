@@ -2,6 +2,7 @@ package com.udg.ambulantes.backend.service;
 
 import com.udg.ambulantes.backend.dto.FavoriteVendorResponse;
 import com.udg.ambulantes.backend.dto.RegisterRequest;
+import com.udg.ambulantes.backend.dto.UserResponse;
 import com.udg.ambulantes.backend.model.User;
 import com.udg.ambulantes.backend.repository.FavoriteVendorRepository;
 import com.udg.ambulantes.backend.repository.UserRepository;
@@ -20,8 +21,7 @@ public class UserService {
 
     public UserService(UserRepository userRepository,
                        FavoriteVendorRepository favoriteVendorRepository,
-                       PasswordEncoder passwordEncoder
-                       ) {
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.favoriteVendorRepository = favoriteVendorRepository;
         this.passwordEncoder = passwordEncoder;
@@ -39,6 +39,23 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         userRepository.save(user);
+    }
+
+    public UserResponse getUserResponseByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Usuario no encontrado"));
+
+        return new UserResponse(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getImgUrl(),
+                user.getIsAvailable(),
+                user.getIsVendor(),
+                user.getIsMobileVendor()
+        );
     }
 
     public List<User> getUsersByIds(List<Long> ids) {

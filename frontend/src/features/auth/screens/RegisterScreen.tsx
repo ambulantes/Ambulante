@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RegisterRequest } from '../../../models/UserRequest';
+import { RegisterRequest } from '@/features/auth/types/auth';
 import {
   View,
   StyleSheet,
@@ -27,8 +27,9 @@ export function RegisterScreen({
 }: RegisterScreenProps) {
   const { colors } = useTheme();
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   
@@ -37,10 +38,11 @@ export function RegisterScreen({
  
   const handleRegister = () => {
     const data: RegisterRequest = {
+      firstName,
+      lastName,
       email,
-      username,
       password,
-      confirm_password: confirmPassword,
+      confirmPassword,
     };
     onRegister?.(data);
   };
@@ -55,7 +57,6 @@ export function RegisterScreen({
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-
         <View style={styles.logoContainer}>
           <Image
             source={require('@/assets/images/lion-icon.png')}
@@ -70,6 +71,30 @@ export function RegisterScreen({
         </Text>
  
         <View style={styles.formContainer}>
+
+          <TextInput
+            label="Nombre"
+            value={firstName}
+            onChangeText={setFirstName}
+            placeholder="Ingresa tu nombre"
+            autoCapitalize="words"
+            mode="outlined"
+            style={[styles.input, { backgroundColor: colors.surface }]}
+            outlineStyle={[styles.inputOutline, { borderColor: colors.outlineVariant }]}
+            theme={{ colors: { primary: colors.primary } }}
+          />
+
+          <TextInput
+            label="Apellido"
+            value={lastName}
+            onChangeText={setLastName}
+            placeholder="Ingresa tu apellido"
+            autoCapitalize="words"
+            mode="outlined"
+            style={[styles.input, { backgroundColor: colors.surface }]}
+            outlineStyle={[styles.inputOutline, { borderColor: colors.outlineVariant }]}
+            theme={{ colors: { primary: colors.primary } }}
+          />
  
           <TextInput
             label="E-mail"
@@ -79,19 +104,6 @@ export function RegisterScreen({
             keyboardType="email-address"
             autoCapitalize="none"
             autoComplete="email"
-            mode="outlined"
-            style={[styles.input, { backgroundColor: colors.surface }]}
-            outlineStyle={[styles.inputOutline, { borderColor: colors.outlineVariant }]}
-            theme={{ colors: { primary: colors.primary } }}
-          />
- 
-          <TextInput
-            label="Nombre de usuario"
-            value={username}
-            onChangeText={setUsername}
-            placeholder="Ingresa tu nombre de usuario"
-            autoCapitalize="none"
-            autoComplete="username"
             mode="outlined"
             style={[styles.input, { backgroundColor: colors.surface }]}
             outlineStyle={[styles.inputOutline, { borderColor: colors.outlineVariant }]}
@@ -161,14 +173,11 @@ export function RegisterScreen({
               <Text style={[styles.loginLink, { color: colors.primary }]}>Inicia sesión.</Text>
             </TouchableOpacity>
           </View>
- 
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
- 
-
 
 const styles = StyleSheet.create({
   keyboardAvoid: {
@@ -181,8 +190,6 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     justifyContent: 'center',
   },
- 
-  // Logo
   logoContainer: {
     alignItems: 'center',
     marginBottom: 20,
@@ -197,7 +204,6 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     marginTop: 8,
   },
- 
   title: {
     fontSize: 20,
     fontWeight: '700',
@@ -205,8 +211,6 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     lineHeight: 28,
   },
- 
-  // Formulario
   formContainer: {
     width: '100%',
   },
@@ -216,8 +220,6 @@ const styles = StyleSheet.create({
   inputOutline: {
     borderRadius: 8,
   },
- 
-  // Hint contraseña
   passwordHint: {
     fontSize: 11,
     marginTop: -6,
@@ -225,8 +227,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     lineHeight: 16,
   },
- 
-  // Botón Regístrate
   registerButton: {
     borderRadius: 24,
     marginTop: 8,
@@ -241,8 +241,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: 0.5,
   },
- 
-  // ¿Ya posees una cuenta?
   loginRow: {
     flexDirection: 'row',
     justifyContent: 'center',

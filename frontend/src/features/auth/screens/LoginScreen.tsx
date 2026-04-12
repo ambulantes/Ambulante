@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LoginRequest } from '../../../models/UserRequest';
+import { LoginRequest } from '../types/auth';
 import {
   View,
   StyleSheet,
